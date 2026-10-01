@@ -9,7 +9,40 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Members.Role
 public class UnassignTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public void MockServerTest()
+    public void MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "role_ids": [
+                "role_ids",
+                "role_ids"
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/members/user_id/unassign-roles")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(WireMock.ResponseBuilders.Response.Create().WithStatusCode(200));
+
+        Assert.DoesNotThrowAsync(async () =>
+            await Client.Organization.Members.Roles.UnassignAsync(
+                "user_id",
+                new OrganizationMemberRolesChangeRequestContent
+                {
+                    RoleIds = new List<string>() { "role_ids", "role_ids" },
+                }
+            )
+        );
+    }
+
+    [NUnit.Framework.Test]
+    public void MockServerTest_2()
     {
         const string requestJson = """
             {

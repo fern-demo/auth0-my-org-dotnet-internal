@@ -10,7 +10,45 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.IdentityProv
 public class CreateTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "domain": "domain"
+            }
+            """;
+
+        const string mockResponse = """
+            {
+              "domain": "domain"
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/identity-providers/idp_id/domains")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.IdentityProviders.Domains.CreateAsync(
+            "idp_id",
+            new CreateIdpDomainRequestContent { Domain = "domain" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string requestJson = """
             {

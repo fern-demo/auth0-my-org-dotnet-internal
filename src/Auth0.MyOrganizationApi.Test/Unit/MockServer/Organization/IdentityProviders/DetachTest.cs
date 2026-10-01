@@ -8,7 +8,24 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.IdentityProv
 public class DetachTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public void MockServerTest()
+    public void MockServerTest_1()
+    {
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/identity-providers/idp_id/detach")
+                    .UsingPost()
+            )
+            .RespondWith(WireMock.ResponseBuilders.Response.Create().WithStatusCode(200));
+
+        Assert.DoesNotThrowAsync(async () =>
+            await Client.Organization.IdentityProviders.DetachAsync("idp_id")
+        );
+    }
+
+    [NUnit.Framework.Test]
+    public void MockServerTest_2()
     {
         Server
             .Given(

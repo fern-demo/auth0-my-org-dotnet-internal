@@ -9,7 +9,53 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Members.Role
 public class ListTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "next": "next",
+              "roles": [
+                {
+                  "id": "id",
+                  "name": "name",
+                  "description": "description"
+                },
+                {
+                  "id": "id",
+                  "name": "name",
+                  "description": "description"
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/members/user_id/roles")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var items = await Client.Organization.Members.Roles.ListAsync(
+            "user_id",
+            new ListOrgMemberRolesRequestParameters()
+        );
+        await foreach (var item in items)
+        {
+            Assert.That(item, Is.Not.Null);
+            break; // Only check the first item
+        }
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

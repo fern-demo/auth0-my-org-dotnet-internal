@@ -7,7 +7,8 @@ public class MyOrganizationApiException(
     string message,
     int statusCode,
     object body,
-    Exception? innerException = null
+    Exception? innerException = null,
+    Auth0.MyOrganizationApi.RawResponse? rawResponse = null
 ) : MyOrganizationException(message, innerException)
 {
     /// <summary>
@@ -20,21 +21,8 @@ public class MyOrganizationApiException(
     /// </summary>
     public object Body => body;
 
-    public override string ToString()
-    {
-        var sb = new System.Text.StringBuilder();
-        sb.Append(GetType().FullName);
-        sb.Append($": {Message}");
-        sb.Append($" (Status Code: {StatusCode})");
-        if (InnerException != null)
-        {
-            sb.Append($"\n ---> {InnerException}");
-            sb.Append("\n --- End of inner exception stack trace ---");
-        }
-        if (StackTrace != null)
-        {
-            sb.Append($"\n{StackTrace}");
-        }
-        return sb.ToString();
-    }
+    /// <summary>
+    /// The raw HTTP response (status code, URL, headers) that triggered the exception, if available.
+    /// </summary>
+    public Auth0.MyOrganizationApi.RawResponse? RawResponse => rawResponse;
 }

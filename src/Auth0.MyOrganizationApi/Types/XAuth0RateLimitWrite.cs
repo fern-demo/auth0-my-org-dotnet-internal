@@ -4,18 +4,24 @@ using global::System.Text.Json.Serialization;
 
 namespace Auth0.MyOrganizationApi;
 
+/// <summary>
+/// Rate limit information for write operations
+/// </summary>
 [Serializable]
-public record IdpAdfsOptionsRequestFedMetadataXml : IJsonOnDeserialized
+public record XAuth0RateLimitWrite : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    /// <summary>
-    /// A Federation Metadata XML file in ADFS is a crucial document that serves as a blueprint for establishing trust between an ADFS server and other relying parties that want to consume identity information from ADFS.
-    /// </summary>
-    [JsonPropertyName("fedMetadataXml")]
-    public required string FedMetadataXml { get; set; }
+    [JsonPropertyName("limit_category")]
+    public required XAuth0RateLimitWriteLimitCategory LimitCategory { get; set; }
+
+    [JsonPropertyName("friendly_name")]
+    public required XAuth0RateLimitWriteFriendlyName FriendlyName { get; set; }
+
+    [JsonPropertyName("limit_type")]
+    public required XAuth0RateLimitWriteLimitType LimitType { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

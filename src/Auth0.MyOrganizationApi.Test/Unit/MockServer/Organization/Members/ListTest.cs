@@ -9,7 +9,51 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Members;
 public class ListTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "next": "next",
+              "members": [
+                {
+                  "email": "email",
+                  "name": "name",
+                  "nickname": "nickname",
+                  "given_name": "given_name",
+                  "family_name": "family_name"
+                },
+                {
+                  "email": "email",
+                  "name": "name",
+                  "nickname": "nickname",
+                  "given_name": "given_name",
+                  "family_name": "family_name"
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(WireMock.RequestBuilders.Request.Create().WithPath("/members").UsingGet())
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var items = await Client.Organization.Members.ListAsync(
+            new ListOrganizationMembersRequestParameters()
+        );
+        await foreach (var item in items)
+        {
+            Assert.That(item, Is.Not.Null);
+            break; // Only check the first item
+        }
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

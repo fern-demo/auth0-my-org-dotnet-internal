@@ -5,25 +5,18 @@ using global::System.Text.Json.Serialization;
 namespace Auth0.MyOrganizationApi;
 
 [Serializable]
-public record IdpSamlpOptionsResponseSignInEndpoint : IJsonOnDeserialized
+public record Automatic : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// The endpoint URL for the IdP sign-in
+    /// URL provided by SAML provider which returns information used for creating the connection
     /// </summary>
     [Optional]
-    [JsonPropertyName("signInEndpoint")]
-    public string? SignInEndpoint { get; set; }
-
-    /// <summary>
-    /// Signing certificate (encoded in PEM or CER) you retrieved from the IdP
-    /// </summary>
-    [Optional]
-    [JsonPropertyName("cert")]
-    public string? Cert { get; set; }
+    [JsonPropertyName("metadataUrl")]
+    public string? MetadataUrl { get; set; }
 
     /// <summary>
     /// When enabled, the SAML authentication request will be signed.
@@ -50,6 +43,13 @@ public record IdpSamlpOptionsResponseSignInEndpoint : IJsonOnDeserialized
     [Optional]
     [JsonPropertyName("bindingMethod")]
     public string? BindingMethod { get; set; }
+
+    /// <summary>
+    /// Signing certificate (encoded in PEM or CER) you retrieved from the IdP
+    /// </summary>
+    [Optional]
+    [JsonPropertyName("cert")]
+    public string? Cert { get; set; }
 
     [Optional]
     [JsonPropertyName("idpInitiated")]

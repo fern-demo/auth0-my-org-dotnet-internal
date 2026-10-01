@@ -11,7 +11,85 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Invitations;
 public class CreateTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "invitees": [
+                {
+                  "email": "x"
+                },
+                {
+                  "email": "x"
+                }
+              ]
+            }
+            """;
+
+        const string mockResponse = """
+            [
+              {
+                "inviter": {
+                  "name": "x"
+                },
+                "invitee": {
+                  "email": "x"
+                },
+                "created_at": "2024-01-15T09:30:00.000Z",
+                "expires_at": "2024-01-15T09:30:00.000Z",
+                "invitation_url": "invitation_url",
+                "ticket_id": "ticket_id"
+              },
+              {
+                "inviter": {
+                  "name": "x"
+                },
+                "invitee": {
+                  "email": "x"
+                },
+                "created_at": "2024-01-15T09:30:00.000Z",
+                "expires_at": "2024-01-15T09:30:00.000Z",
+                "invitation_url": "invitation_url",
+                "ticket_id": "ticket_id"
+              }
+            ]
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/member-invitations")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.Invitations.CreateAsync(
+            new CreateMemberInvitationRequestContent
+            {
+                Invitees = new List<CreateMemberInvitationInvitee>()
+                {
+                    new CreateMemberInvitationInvitee { Email = "x", Roles = null },
+                    new CreateMemberInvitationInvitee { Email = "x", Roles = null },
+                },
+                Inviter = null,
+                IdentityProviderId = null,
+                UserStoreId = null,
+                TtlSec = null,
+            }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string requestJson = """
             {

@@ -30,18 +30,18 @@ public class IdpAdfsOptionsRequest
     public object? Value { get; internal set; }
 
     /// <summary>
-    /// Factory method to create a union from a Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer value.
+    /// Factory method to create a union from a <see cref="Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer"/> value.
     /// </summary>
     public static IdpAdfsOptionsRequest FromIdpAdfsOptionsRequestAdfsServer(
         Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer value
     ) => new("idpAdfsOptionsRequestAdfsServer", value);
 
     /// <summary>
-    /// Factory method to create a union from a Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml value.
+    /// Factory method to create a union from a <see cref="Auth0.MyOrganizationApi.FedMetadataXml"/> value.
     /// </summary>
-    public static IdpAdfsOptionsRequest FromIdpAdfsOptionsRequestFedMetadataXml(
-        Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml value
-    ) => new("idpAdfsOptionsRequestFedMetadataXml", value);
+    public static IdpAdfsOptionsRequest FromFedMetadataXml(
+        Auth0.MyOrganizationApi.FedMetadataXml value
+    ) => new("fedMetadataXml", value);
 
     /// <summary>
     /// Returns true if <see cref="Type"/> is "idpAdfsOptionsRequestAdfsServer"
@@ -49,10 +49,9 @@ public class IdpAdfsOptionsRequest
     public bool IsIdpAdfsOptionsRequestAdfsServer() => Type == "idpAdfsOptionsRequestAdfsServer";
 
     /// <summary>
-    /// Returns true if <see cref="Type"/> is "idpAdfsOptionsRequestFedMetadataXml"
+    /// Returns true if <see cref="Type"/> is "fedMetadataXml"
     /// </summary>
-    public bool IsIdpAdfsOptionsRequestFedMetadataXml() =>
-        Type == "idpAdfsOptionsRequestFedMetadataXml";
+    public bool IsFedMetadataXml() => Type == "fedMetadataXml";
 
     /// <summary>
     /// Returns the value as a <see cref="Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer"/> if <see cref="Type"/> is 'idpAdfsOptionsRequestAdfsServer', otherwise throws an exception.
@@ -66,15 +65,13 @@ public class IdpAdfsOptionsRequest
             );
 
     /// <summary>
-    /// Returns the value as a <see cref="Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml"/> if <see cref="Type"/> is 'idpAdfsOptionsRequestFedMetadataXml', otherwise throws an exception.
+    /// Returns the value as a <see cref="Auth0.MyOrganizationApi.FedMetadataXml"/> if <see cref="Type"/> is 'fedMetadataXml', otherwise throws an exception.
     /// </summary>
-    /// <exception cref="MyOrganizationException">Thrown when <see cref="Type"/> is not 'idpAdfsOptionsRequestFedMetadataXml'.</exception>
-    public Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml AsIdpAdfsOptionsRequestFedMetadataXml() =>
-        IsIdpAdfsOptionsRequestFedMetadataXml()
-            ? (Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml)Value!
-            : throw new MyOrganizationException(
-                "Union type is not 'idpAdfsOptionsRequestFedMetadataXml'"
-            );
+    /// <exception cref="MyOrganizationException">Thrown when <see cref="Type"/> is not 'fedMetadataXml'.</exception>
+    public Auth0.MyOrganizationApi.FedMetadataXml AsFedMetadataXml() =>
+        IsFedMetadataXml()
+            ? (Auth0.MyOrganizationApi.FedMetadataXml)Value!
+            : throw new MyOrganizationException("Union type is not 'fedMetadataXml'");
 
     /// <summary>
     /// Attempts to cast the value to a <see cref="Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer"/> and returns true if successful.
@@ -93,15 +90,13 @@ public class IdpAdfsOptionsRequest
     }
 
     /// <summary>
-    /// Attempts to cast the value to a <see cref="Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml"/> and returns true if successful.
+    /// Attempts to cast the value to a <see cref="Auth0.MyOrganizationApi.FedMetadataXml"/> and returns true if successful.
     /// </summary>
-    public bool TryGetIdpAdfsOptionsRequestFedMetadataXml(
-        out Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml? value
-    )
+    public bool TryGetFedMetadataXml(out Auth0.MyOrganizationApi.FedMetadataXml? value)
     {
-        if (Type == "idpAdfsOptionsRequestFedMetadataXml")
+        if (Type == "fedMetadataXml")
         {
-            value = (Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml)Value!;
+            value = (Auth0.MyOrganizationApi.FedMetadataXml)Value!;
             return true;
         }
         value = null;
@@ -113,10 +108,7 @@ public class IdpAdfsOptionsRequest
             Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer,
             T
         > onIdpAdfsOptionsRequestAdfsServer,
-        Func<
-            Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml,
-            T
-        > onIdpAdfsOptionsRequestFedMetadataXml
+        Func<Auth0.MyOrganizationApi.FedMetadataXml, T> onFedMetadataXml
     )
     {
         return Type switch
@@ -124,16 +116,14 @@ public class IdpAdfsOptionsRequest
             "idpAdfsOptionsRequestAdfsServer" => onIdpAdfsOptionsRequestAdfsServer(
                 AsIdpAdfsOptionsRequestAdfsServer()
             ),
-            "idpAdfsOptionsRequestFedMetadataXml" => onIdpAdfsOptionsRequestFedMetadataXml(
-                AsIdpAdfsOptionsRequestFedMetadataXml()
-            ),
+            "fedMetadataXml" => onFedMetadataXml(AsFedMetadataXml()),
             _ => throw new MyOrganizationException($"Unknown union type: {Type}"),
         };
     }
 
     public void Visit(
         Action<Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer> onIdpAdfsOptionsRequestAdfsServer,
-        Action<Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml> onIdpAdfsOptionsRequestFedMetadataXml
+        Action<Auth0.MyOrganizationApi.FedMetadataXml> onFedMetadataXml
     )
     {
         switch (Type)
@@ -141,8 +131,8 @@ public class IdpAdfsOptionsRequest
             case "idpAdfsOptionsRequestAdfsServer":
                 onIdpAdfsOptionsRequestAdfsServer(AsIdpAdfsOptionsRequestAdfsServer());
                 break;
-            case "idpAdfsOptionsRequestFedMetadataXml":
-                onIdpAdfsOptionsRequestFedMetadataXml(AsIdpAdfsOptionsRequestFedMetadataXml());
+            case "fedMetadataXml":
+                onFedMetadataXml(AsFedMetadataXml());
                 break;
             default:
                 throw new MyOrganizationException($"Unknown union type: {Type}");
@@ -189,8 +179,8 @@ public class IdpAdfsOptionsRequest
     ) => new("idpAdfsOptionsRequestAdfsServer", value);
 
     public static implicit operator IdpAdfsOptionsRequest(
-        Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml value
-    ) => new("idpAdfsOptionsRequestFedMetadataXml", value);
+        Auth0.MyOrganizationApi.FedMetadataXml value
+    ) => new("fedMetadataXml", value);
 
     [Serializable]
     internal sealed class JsonConverter : JsonConverter<IdpAdfsOptionsRequest>
@@ -216,10 +206,7 @@ public class IdpAdfsOptionsRequest
                         "idpAdfsOptionsRequestAdfsServer",
                         typeof(Auth0.MyOrganizationApi.IdpAdfsOptionsRequestAdfsServer)
                     ),
-                    (
-                        "idpAdfsOptionsRequestFedMetadataXml",
-                        typeof(Auth0.MyOrganizationApi.IdpAdfsOptionsRequestFedMetadataXml)
-                    ),
+                    ("fedMetadataXml", typeof(Auth0.MyOrganizationApi.FedMetadataXml)),
                 };
 
                 foreach (var (key, type) in types)

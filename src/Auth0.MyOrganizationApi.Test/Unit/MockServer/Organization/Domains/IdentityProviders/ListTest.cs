@@ -9,7 +9,43 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Domains.Iden
 public class ListTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "identity_providers": [
+                {
+                  "name": "x",
+                  "display_name": "x"
+                },
+                {
+                  "name": "x",
+                  "display_name": "x"
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/domains/domain_id/identity-providers")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.Domains.IdentityProviders.ListAsync("domain_id");
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

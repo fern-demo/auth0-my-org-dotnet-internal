@@ -30,63 +30,53 @@ public class IdpSamlpOptionsResponse
     public object? Value { get; internal set; }
 
     /// <summary>
-    /// Factory method to create a union from a Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl value.
+    /// Factory method to create a union from a <see cref="Auth0.MyOrganizationApi.Automatic"/> value.
     /// </summary>
-    public static IdpSamlpOptionsResponse FromIdpSamlpOptionsResponseMetadataUrl(
-        Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl value
-    ) => new("idpSamlpOptionsResponseMetadataUrl", value);
+    public static IdpSamlpOptionsResponse FromAutomatic(Auth0.MyOrganizationApi.Automatic value) =>
+        new("automatic", value);
 
     /// <summary>
-    /// Factory method to create a union from a Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint value.
+    /// Factory method to create a union from a <see cref="Auth0.MyOrganizationApi.Manual"/> value.
     /// </summary>
-    public static IdpSamlpOptionsResponse FromIdpSamlpOptionsResponseSignInEndpoint(
-        Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint value
-    ) => new("idpSamlpOptionsResponseSignInEndpoint", value);
+    public static IdpSamlpOptionsResponse FromManual(Auth0.MyOrganizationApi.Manual value) =>
+        new("manual", value);
 
     /// <summary>
-    /// Returns true if <see cref="Type"/> is "idpSamlpOptionsResponseMetadataUrl"
+    /// Returns true if <see cref="Type"/> is "automatic"
     /// </summary>
-    public bool IsIdpSamlpOptionsResponseMetadataUrl() =>
-        Type == "idpSamlpOptionsResponseMetadataUrl";
+    public bool IsAutomatic() => Type == "automatic";
 
     /// <summary>
-    /// Returns true if <see cref="Type"/> is "idpSamlpOptionsResponseSignInEndpoint"
+    /// Returns true if <see cref="Type"/> is "manual"
     /// </summary>
-    public bool IsIdpSamlpOptionsResponseSignInEndpoint() =>
-        Type == "idpSamlpOptionsResponseSignInEndpoint";
+    public bool IsManual() => Type == "manual";
 
     /// <summary>
-    /// Returns the value as a <see cref="Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl"/> if <see cref="Type"/> is 'idpSamlpOptionsResponseMetadataUrl', otherwise throws an exception.
+    /// Returns the value as a <see cref="Auth0.MyOrganizationApi.Automatic"/> if <see cref="Type"/> is 'automatic', otherwise throws an exception.
     /// </summary>
-    /// <exception cref="MyOrganizationException">Thrown when <see cref="Type"/> is not 'idpSamlpOptionsResponseMetadataUrl'.</exception>
-    public Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl AsIdpSamlpOptionsResponseMetadataUrl() =>
-        IsIdpSamlpOptionsResponseMetadataUrl()
-            ? (Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl)Value!
-            : throw new MyOrganizationException(
-                "Union type is not 'idpSamlpOptionsResponseMetadataUrl'"
-            );
+    /// <exception cref="MyOrganizationException">Thrown when <see cref="Type"/> is not 'automatic'.</exception>
+    public Auth0.MyOrganizationApi.Automatic AsAutomatic() =>
+        IsAutomatic()
+            ? (Auth0.MyOrganizationApi.Automatic)Value!
+            : throw new MyOrganizationException("Union type is not 'automatic'");
 
     /// <summary>
-    /// Returns the value as a <see cref="Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint"/> if <see cref="Type"/> is 'idpSamlpOptionsResponseSignInEndpoint', otherwise throws an exception.
+    /// Returns the value as a <see cref="Auth0.MyOrganizationApi.Manual"/> if <see cref="Type"/> is 'manual', otherwise throws an exception.
     /// </summary>
-    /// <exception cref="MyOrganizationException">Thrown when <see cref="Type"/> is not 'idpSamlpOptionsResponseSignInEndpoint'.</exception>
-    public Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint AsIdpSamlpOptionsResponseSignInEndpoint() =>
-        IsIdpSamlpOptionsResponseSignInEndpoint()
-            ? (Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint)Value!
-            : throw new MyOrganizationException(
-                "Union type is not 'idpSamlpOptionsResponseSignInEndpoint'"
-            );
+    /// <exception cref="MyOrganizationException">Thrown when <see cref="Type"/> is not 'manual'.</exception>
+    public Auth0.MyOrganizationApi.Manual AsManual() =>
+        IsManual()
+            ? (Auth0.MyOrganizationApi.Manual)Value!
+            : throw new MyOrganizationException("Union type is not 'manual'");
 
     /// <summary>
-    /// Attempts to cast the value to a <see cref="Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl"/> and returns true if successful.
+    /// Attempts to cast the value to a <see cref="Auth0.MyOrganizationApi.Automatic"/> and returns true if successful.
     /// </summary>
-    public bool TryGetIdpSamlpOptionsResponseMetadataUrl(
-        out Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl? value
-    )
+    public bool TryGetAutomatic(out Auth0.MyOrganizationApi.Automatic? value)
     {
-        if (Type == "idpSamlpOptionsResponseMetadataUrl")
+        if (Type == "automatic")
         {
-            value = (Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl)Value!;
+            value = (Auth0.MyOrganizationApi.Automatic)Value!;
             return true;
         }
         value = null;
@@ -94,15 +84,13 @@ public class IdpSamlpOptionsResponse
     }
 
     /// <summary>
-    /// Attempts to cast the value to a <see cref="Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint"/> and returns true if successful.
+    /// Attempts to cast the value to a <see cref="Auth0.MyOrganizationApi.Manual"/> and returns true if successful.
     /// </summary>
-    public bool TryGetIdpSamlpOptionsResponseSignInEndpoint(
-        out Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint? value
-    )
+    public bool TryGetManual(out Auth0.MyOrganizationApi.Manual? value)
     {
-        if (Type == "idpSamlpOptionsResponseSignInEndpoint")
+        if (Type == "manual")
         {
-            value = (Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint)Value!;
+            value = (Auth0.MyOrganizationApi.Manual)Value!;
             return true;
         }
         value = null;
@@ -110,40 +98,30 @@ public class IdpSamlpOptionsResponse
     }
 
     public T Match<T>(
-        Func<
-            Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl,
-            T
-        > onIdpSamlpOptionsResponseMetadataUrl,
-        Func<
-            Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint,
-            T
-        > onIdpSamlpOptionsResponseSignInEndpoint
+        Func<Auth0.MyOrganizationApi.Automatic, T> onAutomatic,
+        Func<Auth0.MyOrganizationApi.Manual, T> onManual
     )
     {
         return Type switch
         {
-            "idpSamlpOptionsResponseMetadataUrl" => onIdpSamlpOptionsResponseMetadataUrl(
-                AsIdpSamlpOptionsResponseMetadataUrl()
-            ),
-            "idpSamlpOptionsResponseSignInEndpoint" => onIdpSamlpOptionsResponseSignInEndpoint(
-                AsIdpSamlpOptionsResponseSignInEndpoint()
-            ),
+            "automatic" => onAutomatic(AsAutomatic()),
+            "manual" => onManual(AsManual()),
             _ => throw new MyOrganizationException($"Unknown union type: {Type}"),
         };
     }
 
     public void Visit(
-        Action<Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl> onIdpSamlpOptionsResponseMetadataUrl,
-        Action<Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint> onIdpSamlpOptionsResponseSignInEndpoint
+        Action<Auth0.MyOrganizationApi.Automatic> onAutomatic,
+        Action<Auth0.MyOrganizationApi.Manual> onManual
     )
     {
         switch (Type)
         {
-            case "idpSamlpOptionsResponseMetadataUrl":
-                onIdpSamlpOptionsResponseMetadataUrl(AsIdpSamlpOptionsResponseMetadataUrl());
+            case "automatic":
+                onAutomatic(AsAutomatic());
                 break;
-            case "idpSamlpOptionsResponseSignInEndpoint":
-                onIdpSamlpOptionsResponseSignInEndpoint(AsIdpSamlpOptionsResponseSignInEndpoint());
+            case "manual":
+                onManual(AsManual());
                 break;
             default:
                 throw new MyOrganizationException($"Unknown union type: {Type}");
@@ -186,12 +164,11 @@ public class IdpSamlpOptionsResponse
     public override string ToString() => JsonUtils.Serialize(this);
 
     public static implicit operator IdpSamlpOptionsResponse(
-        Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl value
-    ) => new("idpSamlpOptionsResponseMetadataUrl", value);
+        Auth0.MyOrganizationApi.Automatic value
+    ) => new("automatic", value);
 
-    public static implicit operator IdpSamlpOptionsResponse(
-        Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint value
-    ) => new("idpSamlpOptionsResponseSignInEndpoint", value);
+    public static implicit operator IdpSamlpOptionsResponse(Auth0.MyOrganizationApi.Manual value) =>
+        new("manual", value);
 
     [Serializable]
     internal sealed class JsonConverter : JsonConverter<IdpSamlpOptionsResponse>
@@ -213,14 +190,8 @@ public class IdpSamlpOptionsResponse
 
                 var types = new (string Key, System.Type Type)[]
                 {
-                    (
-                        "idpSamlpOptionsResponseMetadataUrl",
-                        typeof(Auth0.MyOrganizationApi.IdpSamlpOptionsResponseMetadataUrl)
-                    ),
-                    (
-                        "idpSamlpOptionsResponseSignInEndpoint",
-                        typeof(Auth0.MyOrganizationApi.IdpSamlpOptionsResponseSignInEndpoint)
-                    ),
+                    ("automatic", typeof(Auth0.MyOrganizationApi.Automatic)),
+                    ("manual", typeof(Auth0.MyOrganizationApi.Manual)),
                 };
 
                 foreach (var (key, type) in types)
