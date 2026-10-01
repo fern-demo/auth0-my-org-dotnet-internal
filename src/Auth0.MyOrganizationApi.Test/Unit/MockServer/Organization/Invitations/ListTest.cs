@@ -9,7 +9,63 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Invitations;
 public class ListTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "next": "next",
+              "invitations": [
+                {
+                  "inviter": {
+                    "name": "x"
+                  },
+                  "invitee": {
+                    "email": "x"
+                  },
+                  "created_at": "2024-01-15T09:30:00.000Z",
+                  "expires_at": "2024-01-15T09:30:00.000Z",
+                  "invitation_url": "invitation_url",
+                  "ticket_id": "ticket_id"
+                },
+                {
+                  "inviter": {
+                    "name": "x"
+                  },
+                  "invitee": {
+                    "email": "x"
+                  },
+                  "created_at": "2024-01-15T09:30:00.000Z",
+                  "expires_at": "2024-01-15T09:30:00.000Z",
+                  "invitation_url": "invitation_url",
+                  "ticket_id": "ticket_id"
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock.RequestBuilders.Request.Create().WithPath("/member-invitations").UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var items = await Client.Organization.Invitations.ListAsync(
+            new ListMemberInvitationsRequestParameters()
+        );
+        await foreach (var item in items)
+        {
+            Assert.That(item, Is.Not.Null);
+            break; // Only check the first item
+        }
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

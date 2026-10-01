@@ -9,7 +9,178 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Configuratio
 public class GetTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "organization": {
+                "can_set_show_as_button": true,
+                "can_set_assign_membership_on_login": true
+              },
+              "strategies": {
+                "adfs": {
+                  "enabled_features": [
+                    "provisioning",
+                    "provisioning"
+                  ],
+                  "provisioning_methods": [
+                    "scim",
+                    "scim"
+                  ],
+                  "provisioning": {
+                    "on_login": "never_on_login",
+                    "scim": {
+                      "tokens": {}
+                    }
+                  }
+                },
+                "googleapps": {
+                  "enabled_features": [
+                    "provisioning",
+                    "provisioning"
+                  ],
+                  "provisioning_methods": [
+                    "scim",
+                    "scim"
+                  ],
+                  "provisioning": {
+                    "on_login": "never_on_login",
+                    "scim": {
+                      "tokens": {}
+                    }
+                  }
+                },
+                "oidc": {
+                  "cross_app_access_resource_app": {
+                    "status": {
+                      "default_value": "enabled",
+                      "allowed_values": [
+                        "enabled",
+                        "enabled"
+                      ]
+                    }
+                  },
+                  "enabled_features": [
+                    "provisioning",
+                    "provisioning"
+                  ],
+                  "provisioning_methods": [
+                    "scim",
+                    "scim"
+                  ],
+                  "provisioning": {
+                    "on_login": "never_on_login",
+                    "scim": {
+                      "tokens": {}
+                    }
+                  }
+                },
+                "okta": {
+                  "cross_app_access_resource_app": {
+                    "status": {
+                      "default_value": "enabled",
+                      "allowed_values": [
+                        "enabled",
+                        "enabled"
+                      ]
+                    }
+                  },
+                  "enabled_features": [
+                    "provisioning",
+                    "provisioning"
+                  ],
+                  "provisioning_methods": [
+                    "scim",
+                    "scim"
+                  ],
+                  "provisioning": {
+                    "on_login": "never_on_login",
+                    "scim": {
+                      "tokens": {}
+                    }
+                  }
+                },
+                "pingfederate": {
+                  "enabled_features": [
+                    "provisioning",
+                    "provisioning"
+                  ],
+                  "provisioning_methods": [
+                    "scim",
+                    "scim"
+                  ],
+                  "provisioning": {
+                    "on_login": "never_on_login",
+                    "scim": {
+                      "tokens": {}
+                    }
+                  }
+                },
+                "samlp": {
+                  "cross_app_access_resource_app": {
+                    "status": {
+                      "default_value": "enabled",
+                      "allowed_values": [
+                        "enabled",
+                        "enabled"
+                      ]
+                    }
+                  },
+                  "enabled_features": [
+                    "provisioning",
+                    "provisioning"
+                  ],
+                  "provisioning_methods": [
+                    "scim",
+                    "scim"
+                  ],
+                  "provisioning": {
+                    "on_login": "never_on_login",
+                    "scim": {
+                      "tokens": {}
+                    }
+                  }
+                },
+                "waad": {
+                  "enabled_features": [
+                    "provisioning",
+                    "provisioning"
+                  ],
+                  "provisioning_methods": [
+                    "scim",
+                    "scim"
+                  ],
+                  "provisioning": {
+                    "on_login": "never_on_login",
+                    "scim": {
+                      "tokens": {}
+                    }
+                  }
+                }
+              }
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/config/identity-providers")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.Configuration.IdentityProviders.GetAsync();
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

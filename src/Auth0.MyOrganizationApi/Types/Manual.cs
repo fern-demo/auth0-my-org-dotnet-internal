@@ -5,23 +5,32 @@ using global::System.Text.Json.Serialization;
 namespace Auth0.MyOrganizationApi;
 
 [Serializable]
-public record IdpSamlpOptionsRequestMetadataUrl : IJsonOnDeserialized
+public record Manual : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// URL provided by SAML provider which returns information used for creating the connection
+    /// The endpoint URL for the IdP sign-in
     /// </summary>
-    [JsonPropertyName("metadataUrl")]
-    public required string MetadataUrl { get; set; }
+    [Optional]
+    [JsonPropertyName("signInEndpoint")]
+    public string? SignInEndpoint { get; set; }
+
+    /// <summary>
+    /// Signing certificate (encoded in PEM or CER) you retrieved from the IdP
+    /// </summary>
+    [Optional]
+    [JsonPropertyName("cert")]
+    public string? Cert { get; set; }
 
     /// <summary>
     /// When enabled, the SAML authentication request will be signed.
     /// </summary>
+    [Optional]
     [JsonPropertyName("signSAMLRequest")]
-    public required bool SignSamlRequest { get; set; }
+    public bool? SignSamlRequest { get; set; }
 
     [Optional]
     [JsonPropertyName("signatureAlgorithm")]
@@ -41,13 +50,6 @@ public record IdpSamlpOptionsRequestMetadataUrl : IJsonOnDeserialized
     [Optional]
     [JsonPropertyName("bindingMethod")]
     public string? BindingMethod { get; set; }
-
-    /// <summary>
-    /// Signing certificate (encoded in PEM or CER) you retrieved from the IdP. Optional for this variant: when omitted, the certificate is read from the metadata document.
-    /// </summary>
-    [Optional]
-    [JsonPropertyName("signingCert")]
-    public string? SigningCert { get; set; }
 
     [Optional]
     [JsonPropertyName("idpInitiated")]

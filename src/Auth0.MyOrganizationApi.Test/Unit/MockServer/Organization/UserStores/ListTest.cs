@@ -11,7 +11,48 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.UserStores;
 public class ListTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "user_stores": [
+                {
+                  "id": "id",
+                  "name": "name",
+                  "display_name": "display_name",
+                  "access_level": "none",
+                  "member_access_level": "none",
+                  "is_enabled": true
+                },
+                {
+                  "id": "id",
+                  "name": "name",
+                  "display_name": "display_name",
+                  "access_level": "none",
+                  "member_access_level": "none",
+                  "is_enabled": true
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(WireMock.RequestBuilders.Request.Create().WithPath("/user-stores").UsingGet())
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.UserStores.ListAsync(
+            new ListOrganizationUserStoresRequestParameters()
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {
@@ -40,10 +81,10 @@ public class ListTest : BaseMockServerTest
         var response = await Client.Organization.UserStores.ListAsync(
             new ListOrganizationUserStoresRequestParameters
             {
-                MemberAccessLevel =
-                [
-                    ..new List<OrganizationAccessLevelEnum?>() { OrganizationAccessLevelEnum.None },
-                ],
+                MemberAccessLevel = new List<OrganizationAccessLevelEnum?>()
+                {
+                    OrganizationAccessLevelEnum.None,
+                },
                 IsEnabled = true,
             }
         );

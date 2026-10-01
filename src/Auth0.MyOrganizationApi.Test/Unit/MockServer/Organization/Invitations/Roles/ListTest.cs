@@ -9,7 +9,45 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Invitations.
 public class ListTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "roles": [
+                {
+                  "id": "id",
+                  "name": "name",
+                  "description": "description"
+                },
+                {
+                  "id": "id",
+                  "name": "name",
+                  "description": "description"
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/member-invitations/invitation_id/roles")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.Invitations.Roles.ListAsync("invitation_id");
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

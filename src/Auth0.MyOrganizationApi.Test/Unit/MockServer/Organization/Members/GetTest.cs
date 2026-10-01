@@ -10,7 +10,38 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Members;
 public class GetTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "email": "email",
+              "name": "name",
+              "nickname": "nickname",
+              "given_name": "given_name",
+              "family_name": "family_name"
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock.RequestBuilders.Request.Create().WithPath("/members/user_id").UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.Members.GetAsync(
+            "user_id",
+            new GetOrganizationMemberRequestParameters()
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

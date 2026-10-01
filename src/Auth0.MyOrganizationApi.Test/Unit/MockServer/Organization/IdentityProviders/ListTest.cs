@@ -11,7 +11,78 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.IdentityProv
 public class ListTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "identity_providers": [
+                {
+                  "strategy": "adfs",
+                  "options": {
+                    "adfs_server": "adfs_server"
+                  },
+                  "id": "id",
+                  "name": "name",
+                  "domains": [
+                    "domains",
+                    "domains"
+                  ],
+                  "display_name": "x",
+                  "show_as_button": true,
+                  "assign_membership_on_login": true,
+                  "is_enabled": true,
+                  "access_level": "none",
+                  "member_access_level": "none",
+                  "use_for_third_party_client_access": true,
+                  "cross_app_access_resource_app": {
+                    "status": "enabled"
+                  }
+                },
+                {
+                  "strategy": "adfs",
+                  "options": {
+                    "adfs_server": "adfs_server"
+                  },
+                  "id": "id",
+                  "name": "name",
+                  "domains": [
+                    "domains",
+                    "domains"
+                  ],
+                  "display_name": "x",
+                  "show_as_button": true,
+                  "assign_membership_on_login": true,
+                  "is_enabled": true,
+                  "access_level": "none",
+                  "member_access_level": "none",
+                  "use_for_third_party_client_access": true,
+                  "cross_app_access_resource_app": {
+                    "status": "enabled"
+                  }
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock.RequestBuilders.Request.Create().WithPath("/identity-providers").UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.IdentityProviders.ListAsync(
+            new ListOrganizationIdentityProvidersRequestParameters()
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {
@@ -134,10 +205,10 @@ public class ListTest : BaseMockServerTest
         var response = await Client.Organization.IdentityProviders.ListAsync(
             new ListOrganizationIdentityProvidersRequestParameters
             {
-                MemberAccessLevel =
-                [
-                  ..new List<OrganizationAccessLevelEnum?>() { OrganizationAccessLevelEnum.None },
-                ],
+                MemberAccessLevel = new List<OrganizationAccessLevelEnum?>()
+                {
+                    OrganizationAccessLevelEnum.None,
+                },
                 IsEnabled = true,
             }
         );

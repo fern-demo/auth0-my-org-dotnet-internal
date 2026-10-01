@@ -9,7 +9,40 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.Invitations;
 public class DeleteTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public void MockServerTest()
+    public void MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "invitations": [
+                "invitations",
+                "invitations"
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/delete-member-invitations")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(WireMock.ResponseBuilders.Response.Create().WithStatusCode(200));
+
+        Assert.DoesNotThrowAsync(async () =>
+            await Client.Organization.Invitations.DeleteAsync(
+                new DeleteMemberInvitationsRequestContent
+                {
+                    Invitations = new List<string>() { "invitations", "invitations" },
+                }
+            )
+        );
+    }
+
+    [NUnit.Framework.Test]
+    public void MockServerTest_2()
     {
         const string requestJson = """
             {

@@ -9,7 +9,71 @@ namespace Auth0.MyOrganizationApi.Test.Unit.MockServer.Organization.IdentityProv
 public class UpdateAttributesTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "string": {
+                "key": "value"
+              }
+            }
+            """;
+
+        const string mockResponse = """
+            {
+              "strategy": "adfs",
+              "options": {
+                "adfs_server": "adfs_server"
+              },
+              "id": "id",
+              "name": "name",
+              "domains": [
+                "domains",
+                "domains"
+              ],
+              "display_name": "x",
+              "show_as_button": true,
+              "assign_membership_on_login": true,
+              "is_enabled": true,
+              "access_level": "none",
+              "member_access_level": "none",
+              "use_for_third_party_client_access": true,
+              "cross_app_access_resource_app": {
+                "status": "enabled"
+              }
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/identity-providers/idp_id/update-attributes")
+                    .UsingPut()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.Organization.IdentityProviders.UpdateAttributesAsync(
+            "idp_id",
+            new Dictionary<string, object?>()
+            {
+                {
+                    "string",
+                    new Dictionary<object, object?>() { { "key", "value" } }
+                },
+            }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string requestJson = """
             {

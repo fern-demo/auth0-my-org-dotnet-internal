@@ -5,18 +5,14 @@ using global::System.Text.Json.Serialization;
 namespace Auth0.MyOrganizationApi;
 
 [Serializable]
-public record IdpAdfsOptionsResponseFedMetadataXml : IJsonOnDeserialized
+public record GetAllowedApisResponseContent : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    /// <summary>
-    /// A Federation Metadata XML file in ADFS is a crucial document that serves as a blueprint for establishing trust between an ADFS server and other relying parties that want to consume identity information from ADFS.
-    /// </summary>
-    [Optional]
-    [JsonPropertyName("fedMetadataXml")]
-    public string? FedMetadataXml { get; set; }
+    [JsonPropertyName("apis")]
+    public IEnumerable<AllowedApi> Apis { get; set; } = new List<AllowedApi>();
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
